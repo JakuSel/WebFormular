@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Stranka</title>
+	<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+	
+<form>
+	
+<table>
+<tr>
+<td>Name: </td>
+<td><input type="text" id="fname"name="osob_udaje" maxlength="15"></td>
+<td>Surrname: </td>
+<td><input type="text" name="osob_udaje"></td>
+</tr>
+
+<tr id="udaje_gender">
+	<td>Date of birth: </td>
+	<td><input type="Date" name="osob_udaje"></td>
+	<td class="gen">Gender: </td>	
+	<td>	<div class="gender">
+		<input type="radio" name="gend" value="1" checked>Male <br>
+		<input type="radio" name="gend" value="1">Female
+	</div>
+	</td>	
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td><input type="submit" value="Send" class="odo"></td>
+</tr>	
+<br>
+</table>
+<div id="Vyber">
+Show:    
+<select> 
+<option selected>Male/ Female</option>
+		<option>Male</option>
+		<option>Female</option>
+</select>
+	<input type="checkbox">Age		
+			
+</div>
+	
+		
+</form>	
+	
+</body>
+</html>
