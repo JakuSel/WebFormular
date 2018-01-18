@@ -1,19 +1,7 @@
-(function($){
-//validation
-    $(document).ready(function(){
-        $("#form").validate();
-    });
-    
-//function
-$("#first_name").keyup(function(event) {
-     var fname=$("#first_name").val();
-          /* Act on the event */
-   });
+$(document).ready(function(){
+$("#form").validate({
+    submitHandler: processFormData()
 
-   $("#last_name").keyup(function(event) {
-     var lname=$("#last_name").val();
-     /* Act on the event */
-   });
 
 function processFormData(){
 var newPerson=new Object();
@@ -25,7 +13,7 @@ newPerson.gender=$("input[name='gend']:checked").val();
      persons.push(newPerson);
      printTable();
 
-   }
+}
 
 function printTable(){
 var tablediv=$('.table');
@@ -104,7 +92,7 @@ var arr=new Array();
    }
 
    $("#selectGender").change(function(event) {
-     /* Act on the event */
+    
      printTable();
    });
 
@@ -116,5 +104,4 @@ var arr=new Array();
      printTable();
    });
 });
- 
-})(jQuery);
+});
