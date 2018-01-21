@@ -1,28 +1,42 @@
-table{margin:0px auto;
-        text-align:left;
-		padding: 15px;
-		background-color: #b3d1ff;
-        width: 80%;
-
-	}
-	#menu{
-	text-align: right;
-	}
-    .gender{
-        color: chartreuse;
-    }
-    #Vyber{
-       position: relative;  background-color: #b3d1ff; width: 80%;
-       margin: auto; padding-top: 10px; padding-bottom: 10px;
-       padding-left: 12px;
-    }
-    ul {
-    list-style-image: url('images/darthvader.png');
+input[type=text], input[type=date], select, input[type=submit] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
-    .round {
-        border: 2px solid blue;
-        border-radius: 10px;
-        border-top-left-radius: 25px; 
-        border-bottom-right-radius: 25px;
-        box-shadow: 10px 10px;
-    }
+input[type=radio], #genderBox{
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: left;
+}
+input[type=submit] {
+    background-color: #123456;
+    color: white;
+    cursor: pointer;
+    float: left;    
+}
+#form {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+#title_header{
+    font-family: "Arial", "Helvetica";
+    font-size: 25px;
+}
+#web_header{    
+    background-color: black;
+    color: white;   
+}
+#form_header{
+     background-color: orange;
+    color: black;        
+}

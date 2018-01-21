@@ -1,107 +1,123 @@
-$(document).ready(function(){
-$("#form").validate({
-    submitHandler: processFormData()
+$(function(){
+    var error=false;
+    var persons=new Array();
+    var date = new Date();
+    var currentYear = date.getFullYear();
+    var currentMonth = parseInt(date.getMonth()+1);
+    var currentDay = date.getDate();
+    
+$("#submitBtn").click(verifyForm);
+        
 
+function findAge(){
+var bd = new Date($("#date").val());
+var day = bd.getDate();
+var month = bd.getMonth()+1;
+var year = bd.getFullYear();
+    
+    
+var age= currentYear-year;
+if(month>currentMonth)
+    return age-1;
+else if(month<currentMonth) 
+    return age;
+else if(month==currentMonth)
+    {
+        if(day>=currentDay)
+        return age-1;
+        else
+        return age;
+    }
+}   
+    
+function verifyForm(){
+    var fname=$("#first_name").val();
+    var lname=$("#last_name").val();
+    
+    if(fname.trim().length<2 || fname==""){
+        $("#fnameErr").html("Invalid input");
+        error=true;
+    }
+    if(lname.trim().length<2 || lname==""){
+        $("#lnameErr").html("Invalid input");
+        error=true;
+    }
+    if(findAge()<0){
+        $("#dateErr").html("Invalid date");
+        error=true;
+    }
+    if(findAge()>0){
+        $("#dateErr").html("");
+       
+    }
+    
+    if(error==false){
+     personData();
+    }
+}
+    
+$("#first_name").keyup(function() {
+     var fname=$("#first_name").val();
+     if(fname.trim().length>1){
+       $("#fnameErr").html("");
+     }
+    });
 
-function processFormData(){
+$("#last_name").keyup(function() {
+     var lname=$("#last_name").val();
+     if(lname.trim().length>1){
+       $("#lnameErr").html("");
+     }    
+    });
+    
+
+    
+function personData(){
 var newPerson=new Object();
+
 newPerson.firstName=$("#first_name").val();
 newPerson.lastName=$("#last_name").val();
-newPerson.dob=$("#birthdate").val();
-newPerson.gender=$("input[name='gend']:checked").val();
+newPerson.dob=$("#date").val();
+newPerson.gender=$("input[name='gender']:checked").val();
+newPerson.personAge=findAge();
 
-     persons.push(newPerson);
-     printTable();
-
+persons.push(newPerson);
+resultTable();
 }
-
-function printTable(){
-var tablediv=$('.table');
-     tablediv.empty();
-var selectedGender = getSelectedGender();
-var checkedAge=isCheckedAge();
-
-var arr=new Array();
-
-     persons.forEach(function(obj){
-
-       if(selectedGender == 'm' && obj.gender=='true'){
-         //console.log("muz");
-            arr.push(obj);
-       }
-       if(selectedGender == 'f' && obj.gender=='false'){
-         //console.log("zeny");
-            arr.push(obj);
-       }
-       if(selectedGender == 'a'){
-         //console.log("muzy a zeny");
-            arr.push(obj);
-       }
-     });
-
-     if(arr.length>0){
-
-        var table = $("<table/>");
-        var line=$("<tr/>");
-        var col1=$("<th/>");
-        $(col1).append('First name');
-        var col2=$("<th/>");
-        $(col2).append('Last name');
-        var col3=$("<th/>");
-        if(checkedAge){
-              $(col3).append('Age');
-        }
-        else {
-             $(col3).append('Date of birth');
-        }
-        var col4=$("<th/>");
-        $(col4).append('Gender');
-        var col5=$("<th/>");
-        $(col5).append('Delete');
-        line.append(col1);
-        line.append(col2);
-        line.append(col3);
-        line.append(col4);
-        line.append(col5);
-        table.append(line);
-        tablediv.append(table);
-     }
-     //for(i=0;i<persons.size();i++){}
-     arr.forEach(function(obj){
-        var line=$("<tr/>");
-        var col1=$("<td/>");
-        $(col1).append(obj.firstName);
-        var col2=$("<td/>");
-        $(col2).append(obj.lastName);
-        var col3=$("<td/>");
-        $(col3).append(obj.dob);
-        var col4=$("<td/>");
-        $(col4).append(obj.gender);
-        line.append(col1);
-        line.append(col2);
-        line.append(col3);
-        line.append(col4);
-        table.append(line);
-     });
-
-   }
-
-   function getSelectedGender(){
-      var value = $("#selectGender").val();
-      return value;
-   }
-
-   $("#selectGender").change(function(event) {
     
-     printTable();
-   });
-
-   function isCheckedAge(){
-     return $("#showAge").is(':checked');
-   }
-
-   $("#showAge").change(function(event){
-     printTable();
-   });
+function resultTable(){
+    
+var tableDiv=$("#formTable");
+tableDiv.empty();
+    
+if(persons.length>0){
+var table=$("<table border='1'></table>")
+table.append('<tr><th>First Name</th><th>Last Name</th><th>Birth Date</th><th>Gender</th><th>Age</th></tr>');
+tableDiv.append(table);
+}
+    
+persons.forEach(function(obj){
+var newline=$('<tr><td>'+obj.firstName+'</td><td>'+obj.lastName+'</td><td>'+obj.dob+'</td><td>'+obj.gender+'</td><td>'+obj.personAge+'</td></tr>');
+ 
+var remBtn=$("<button class='rem'>X</button>");
+$(".rem").on("click",function(){
+                $(this).parent().remove();
+            });    
+newline.append(remBtn);    
+table.append(newline);
 });
+}
+    
 });
+    /*
+    var elem1=$("<span></span>").text(fname);
+          //  var elem2=$("<span></span>").text(lname);
+            $(elem1).append("<button class='rem'>X</button>");
+            $("#formTable").append(elem1);
+
+            
+            $(".rem").on("click",function(){
+                $(this).parent().remove();
+            });
+    
+*/
