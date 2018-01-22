@@ -1,6 +1,6 @@
 $(function(){
-    var error=false;
-    var persons=new Array();
+    
+    var persons=[];
     var date = new Date();
     var currentYear = date.getFullYear();
     var currentMonth = parseInt(date.getMonth()+1);
@@ -31,6 +31,7 @@ else if(month==currentMonth)
 }   
     
 function verifyForm(){
+    var error=false;
     var fname=$("#first_name").val();
     var lname=$("#last_name").val();
     
@@ -52,6 +53,8 @@ function verifyForm(){
     }
     
     if(error==false){
+   
+        
      personData();
     }
 }
@@ -78,9 +81,13 @@ var newPerson=new Object();
 newPerson.firstName=$("#first_name").val();
 newPerson.lastName=$("#last_name").val();
 newPerson.dob=$("#date").val();
-newPerson.gender=$("input[name='gender']:checked").val();
+newPerson.gender=getGender();
 newPerson.personAge=findAge();
+newPerson.id=persons.length+1;
 
+    $("#first_name").val("");
+    $("#last_name").val("");
+    $("#date").val("");
 persons.push(newPerson);
 resultTable();
 }
@@ -97,16 +104,32 @@ tableDiv.append(table);
 }
     
 persons.forEach(function(obj){
-var newline=$('<tr><td>'+obj.firstName+'</td><td>'+obj.lastName+'</td><td>'+obj.dob+'</td><td>'+obj.gender+'</td><td>'+obj.personAge+'</td></tr>');
+var newline=$('<tr id='+obj.id+'><td>'+obj.firstName+'</td><td>'+obj.lastName+'</td><td>'+obj.dob+'</td><td>'+obj.gender+'</td><td>'+obj.personAge+'</td></tr>');
  
-var remBtn=$("<button class='rem'>X</button>");
+var remBtn=$("<button  class='rem'>X</button>");
 $(".rem").on("click",function(){
-                $(this).parent().remove();
+    
+$(this).parent().remove();
+  
+for(i=0;i<persons.length;i++){
+    if ($(this).id==persons[i].id){
+        persons.splice(i,1);
+    }
+} 
+    
             });    
 newline.append(remBtn);    
 table.append(newline);
 });
 }
+    
+function getGender(){
+return $("input[name='gender']:checked").val();
+}
+    
+    
+    
+    
     
 });
     /*

@@ -40,3 +40,8 @@ input[type=submit] {
      background-color: orange;
     color: black;        
 }
+.rem{
+    background-color: firebrick;
+    cursor: pointer;
+    
+}
