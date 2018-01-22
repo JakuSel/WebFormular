@@ -1,6 +1,6 @@
 $(function(){
     
-    var persons=[];
+    var personsArray=[];
     var date = new Date();
     var currentYear = date.getFullYear();
     var currentMonth = parseInt(date.getMonth()+1);
@@ -54,8 +54,8 @@ function verifyForm(){
     
     if(error==false){
    
-        
-     personData();
+    newPerson();  
+   //  personData();
     }
 }
     
@@ -73,47 +73,46 @@ $("#last_name").keyup(function() {
      }    
     });
     
-
+function newPerson(){
+    var person={
+firstName: $("#first_name").val(),
+lastName: $("#last_name").val(),
+dob: $("#date").val(),
+gender: getGender(),
+personAge: findAge(),
+id: personsArray.length+1
+    };
     
-function personData(){
-var newPerson=new Object();
-
-newPerson.firstName=$("#first_name").val();
-newPerson.lastName=$("#last_name").val();
-newPerson.dob=$("#date").val();
-newPerson.gender=getGender();
-newPerson.personAge=findAge();
-newPerson.id=persons.length+1;
-
     $("#first_name").val("");
     $("#last_name").val("");
     $("#date").val("");
-persons.push(newPerson);
-resultTable();
-}
     
+    personsArray.push(person);
+    resultTable();
+}
+
 function resultTable(){
     
 var tableDiv=$("#formTable");
 tableDiv.empty();
     
-if(persons.length>0){
+if(personsArray.length>0){
 var table=$("<table border='1'></table>")
 table.append('<tr><th>First Name</th><th>Last Name</th><th>Birth Date</th><th>Gender</th><th>Age</th></tr>');
 tableDiv.append(table);
 }
     
-persons.forEach(function(obj){
+personsArray.forEach(function(obj){
 var newline=$('<tr id='+obj.id+'><td>'+obj.firstName+'</td><td>'+obj.lastName+'</td><td>'+obj.dob+'</td><td>'+obj.gender+'</td><td>'+obj.personAge+'</td></tr>');
  
 var remBtn=$("<button  class='rem'>X</button>");
 $(".rem").on("click",function(){
-    
-$(this).parent().remove();
+var row=this.parentNode;   
+row.remove();
   
-for(i=0;i<persons.length;i++){
-    if ($(this).id==persons[i].id){
-        persons.splice(i,1);
+for(i=0;i<personsArray.length;i++){
+    if (row.id==personsArray[i].id){
+        personsArray.splice(i,1);
     }
 } 
     
