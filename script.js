@@ -43,6 +43,15 @@ function verifyForm(){
         $("#lnameErr").html("Invalid input");
         error=true;
     }
+    
+    
+    if($("#dateErr").html("")==0)
+        {
+        $("#dateErr").html("Invalid date");
+        error=true;
+        }
+    
+    
     if(findAge()<0){
         $("#dateErr").html("Invalid date");
         error=true;
@@ -126,7 +135,29 @@ function getGender(){
 return $("input[name='gender']:checked").val();
 }
     
+$("#saveData").on("click",function(){
+    if(personsArray.size==0)
+        return 0;
+    if (typeof(Storage) !== "undefined") {
+    localStorage.persons=JSON.stringify(personsArray);  
+    }   
+    else {
+        return;
     
+}
+    
+});
+    
+$("#loadData").on("click",function(){
+    if (typeof(Storage) !== "undefined") {
+    personsArray=JSON.parse(localStorage.persons);  
+    resultTable();
+    }   
+    else {
+        return;
+    }
+    // Sorry! No Web Storage support..
+});  
     
     
     
